@@ -1,16 +1,20 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace TicTacToe.Core
 {
     public class Board
     {
+        // Константа для розміру поля (виправлення Issue #1)
+        public const int BoardSize = 3;
+        
         private char[,] _board;
         private List<IObserver> _observers;
 
         public Board()
         {
-            _board = new char[3, 3];
+            // Використання константи замість магічного числа 3
+            _board = new char[BoardSize, BoardSize];
             _observers = new List<IObserver>();
         }
 
@@ -33,7 +37,8 @@ namespace TicTacToe.Core
 
         public bool CheckForWin(char marker)
         {
-            for (int i = 0; i < 3; i++)
+            // Заміна всіх магічних чисел 3 на константу BoardSize
+            for (int i = 0; i < BoardSize; i++)
             {
                 if (_board[i, 0] == marker && _board[i, 1] == marker && _board[i, 2] == marker)
                     return true;
