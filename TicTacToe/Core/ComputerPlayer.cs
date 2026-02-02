@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace TicTacToe.Core
 {
@@ -15,8 +15,9 @@ namespace TicTacToe.Core
 
             while (!validMove)
             {
-                x = _random.Next(0, 3);
-                y = _random.Next(0, 3);
+                // Використання константи BoardSize замість магічного числа 3
+                x = _random.Next(0, Board.BoardSize);
+                y = _random.Next(0, Board.BoardSize);
 
                 if (board[x, y] == '\0')
                 {
