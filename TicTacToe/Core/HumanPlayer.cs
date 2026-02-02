@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace TicTacToe.Core
 {
@@ -14,18 +14,33 @@ namespace TicTacToe.Core
             while (!validMove)
             {
                 Console.WriteLine($"{Name}'s turn. Enter row (0, 1, 2): ");
-                x = int.Parse(Console.ReadLine());
-                Console.WriteLine("Enter column (0, 1, 2): ");
-                y = int.Parse(Console.ReadLine());
+                string inputX = Console.ReadLine();
+                
+                // Використання TryParse замість Parse (виправлення Issue #2)
+                if (!int.TryParse(inputX, out x))
+                {
+                    Console.WriteLine("Invalid input. Please enter a number 0, 1, or 2.");
+                    continue;
+                }
 
-                if (x >= 0 && x < 3 && y >= 0 && y < 3 && board[x, y] == '\0')
+                Console.WriteLine("Enter column (0, 1, 2): ");
+                string inputY = Console.ReadLine();
+                
+                if (!int.TryParse(inputY, out y))
+                {
+                    Console.WriteLine("Invalid input. Please enter a number 0, 1, or 2.");
+                    continue;
+                }
+
+                // Використання константи BoardSize замість магічного числа 3
+                if (x >= 0 && x < Board.BoardSize && y >= 0 && y < Board.BoardSize && board[x, y] == '\0')
                 {
                     board.PlaceMarker(Marker, x, y);
                     validMove = true;
                 }
                 else
                 {
-                    Console.WriteLine("Invalid move. Try again.");
+                    Console.WriteLine($"Invalid move. Cell ({x}, {y}) is occupied or out of bounds. Try again.");
                 }
             }
         }
