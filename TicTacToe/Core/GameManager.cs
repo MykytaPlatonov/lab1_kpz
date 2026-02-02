@@ -1,20 +1,13 @@
-﻿using System;
+using System;
 
 namespace TicTacToe.Core
 {
     public class GameManager
     {
+        // Приватне статичне поле для Singleton
         private static GameManager _instance;
-        public Player Player1 { get; private set; }
-        public Player Player2 { get; private set; }
-        public Board GameBoard { get; private set; }
-        public Player CurrentPlayer { get; private set; }
-
-        private GameManager()
-        {
-            GameBoard = new Board();
-        }
-
+        
+        // Публічна властивість для доступу (опціонально можна зробити тільки метод)
         public static GameManager Instance
         {
             get
@@ -25,6 +18,23 @@ namespace TicTacToe.Core
                 }
                 return _instance;
             }
+        }
+
+        // Додано: Публічний метод для скидання інстансу (виправлення Issue #3)
+        public static void ResetInstanceForTesting()
+        {
+            _instance = null;
+        }
+
+        public Player Player1 { get; private set; }
+        public Player Player2 { get; private set; }
+        public Board GameBoard { get; private set; }
+        public Player CurrentPlayer { get; private set; }
+
+        // Конструктор залишається приватним
+        private GameManager()
+        {
+            GameBoard = new Board();
         }
 
         public void InitializeGame(Player player1, Player player2)
